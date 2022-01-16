@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkdungeon_world_manager=self.webpackChunkdungeon_world_manager||[]).push([[678],{1080:function(e,n,r){r.r(n),r.d(n,{default:function(){return t}});var u=r(7294),t=function(){return u.createElement(u.Fragment,null,u.createElement("h1",null,"Home"))}}}]);
-//# sourceMappingURL=component---src-pages-index-js-2623000be1935f6df580.js.map
