@@ -1,14 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./navbar";
-import { Segment } from "semantic-ui-react";
+import { Segment, Menu, Icon, Image } from "semantic-ui-react";
 import "semantic-ui-css/semantic.css";
+import Logo from "../images/dungeon-world.png";
 
 const Layout = ({ children }) => {
+  const [sidebar, setSidebar] = useState(false);
+
+  function openSidebar() {
+    setSidebar(true);
+  }
+
+  function closeSidebar() {
+    setSidebar(false);
+  }
+
   return (
     <React.Fragment>
-      <Navbar />
+      {/* // ! Web Navigation */}
+      <Menu color="grey" inverted fluid>
+        <Menu.Item>
+          <Image src={Logo} size="small" />
+        </Menu.Item>
+
+        <Menu.Menu position="right">
+          <Menu.Item onClick={openSidebar}>
+            <Icon color="black" name="bars" size="big" />
+          </Menu.Item>
+        </Menu.Menu>
+      </Menu>
+
+      {/* // ! App Navigation */}
+      {sidebar ? <Navbar closeSidebar={closeSidebar} /> : null}
+
+      {/* // ! App Content */}
       <Segment color="red" padded>
-      {children}
+        {children}
       </Segment>
     </React.Fragment>
   );

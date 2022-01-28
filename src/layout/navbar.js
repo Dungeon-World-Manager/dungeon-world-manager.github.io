@@ -1,59 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "gatsby";
 import { Menu, Dropdown, Icon, Image, Sidebar } from "semantic-ui-react";
-import Logo from "../images/dungeon-world.png";
 import DWIcon from "../images/dwLogo.jpg";
+import State from "../state";
 
-const Navbar = () => {
-  // const loginCom = () => {
-  //   return (
-  //     <Menu.Item onClick={login}>
-  //       <Link to="/login">Login</Link>
-  //     </Menu.Item>
-  //   );
-  // };
-
-  // const logoutCom = () => {
-  //   return (
-  // <Menu.Item vertical onClick={logout}>
-  //   <Icon size="big" name="user circle" />
-  //   Username
-  // </Menu.Item>
-
-  //     <Dropdown text="Username" icon="user circle">
-  //       <Dropdown.Menu>
-  //         <Dropdown.Item text="Profile Settings" />
-  //         <Dropdown.Item text="Logout" onClick={logout} />
-  //       </Dropdown.Menu>
-  //     </Dropdown>
-  //   );
-  // };
-
-  // const [setLoginCheck] = React.useState(false);
-
-  // function login() {
-  //   setLoginCheck(true);
-  // }
-
-  // function logout() {
-  //   setLoginCheck(false);
-  // }
+const Navbar = ({ closeSidebar }) => {
+  const state = React.useContext(State);
+  var auth = state.auth;
 
   return (
     <React.Fragment>
-      {/* // ! Web Navigation */}
-      <Menu color="grey" inverted fluid>
-        <Menu.Item>
-          <Image src={Logo} size="small" />
-        </Menu.Item>
-
-        <Menu.Menu position="right">
-          <Menu.Item>
-            <Icon color="black" name="bars" size="big" />
-          </Menu.Item>
-        </Menu.Menu>
-      </Menu>
-
       {/* // ! App Navigation */}
       <Sidebar
         as={Menu}
@@ -66,10 +22,18 @@ const Navbar = () => {
         width="thin"
         direction="right"
       >
-        <Menu.Item>
-          <Image src={DWIcon} size="tiny" spaced="left" circular centered />
-          <p>User Name</p>
+        <Menu.Item onClick={closeSidebar}>
+          <Icon corner="top right" name="close" />
         </Menu.Item>
+
+        {/* //* Checks to see if user is logged in to display their username and profile pic */}
+        {auth.user.id ? (
+          <Menu.Item>
+            <Image src={DWIcon} size="tiny" spaced="left" circular centered />
+            <p>{auth.user.userName}</p>
+          </Menu.Item>
+        ) : null}
+
         <Menu.Item as={Link} to="/">
           <Icon name="home" />
           Home
@@ -89,14 +53,17 @@ const Navbar = () => {
             <Dropdown.Item text="Other 3" />
           </Dropdown.Menu>
         </Dropdown>
-        <Menu.Item as={Link} to="/login">
-          <Icon name="user circle" />
-          Login
-          {/* {loginCom} */}
-          {/* {logoutCom} */}
-          {/* {setLoginCheck ? { loginCom } : { logoutCom }}; */}
-          {/* {check} */}
-        </Menu.Item>
+
+        {/* //* If user is not logged in show menu item leading to login page or else show logout with onclick auth.logoutUser */}
+        {auth.user.id ? (
+          <Menu.Item onClick={auth.logoutUser}>
+            <Icon name="user circle" /> Logout
+          </Menu.Item>
+        ) : (
+          <Menu.Item as={Link} to="/login">
+            <Icon name="user circle" /> Login
+          </Menu.Item>
+        )}
       </Sidebar>
     </React.Fragment>
   );
