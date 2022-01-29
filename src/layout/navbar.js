@@ -53,6 +53,10 @@ const Navbar = ({ closeSidebar }) => {
             <Dropdown.Item text="Other 3" />
           </Dropdown.Menu>
         </Dropdown>
+          <Menu.Item as={Link} to="/settings">
+          <Icon name="setting"/>
+          Settings
+          </Menu.Item>
 
         {/* //* If user is not logged in show menu item leading to login page or else show logout with onclick auth.logoutUser */}
         {auth.user.id ? (
