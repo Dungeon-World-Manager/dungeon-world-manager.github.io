@@ -11,7 +11,6 @@ const Login = () => {
     React.useEffect(() => {
         // if user is signed in, welcome them
         if (stateAuth.user.id) {
-            console.log(stateAuth.user);
             document.querySelector('#signedInLink').click();
         }
     });
@@ -48,7 +47,7 @@ const Login = () => {
                                     size='massive'
                                 />
                             </Grid.Column>
-                            <Grid.Column>
+                            <Grid.Column style={{ margin: '24px 0' }}>
                                 <Button
                                     color='google plus'
                                     icon='google'
