@@ -10,8 +10,15 @@ import {
   Button,
 } from "semantic-ui-react";
 import { addClass } from "../../functions/db";
+// Importing a state
+import State from "../../state";
 
 const BaseInfo = () => {
+  const state = React.useContext(State);
+  const auth = state.auth;
+
+  console.log(auth.user);
+
   const [createClass, setCreateClass] = useState({ Races: [{ name: "none" }] });
 
   const [Name, setName] = useState({
@@ -75,6 +82,8 @@ const BaseInfo = () => {
   }
 
   function classSubmit() {
+    //This is going to tie the user with the class that is created.
+    createClass.userid = auth.user.id;
     addClass(createClass);
   }
   return (
