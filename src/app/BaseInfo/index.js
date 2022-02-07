@@ -9,12 +9,14 @@ import {
   TextArea,
   Button,
 } from "semantic-ui-react";
+import { addClass } from "../../functions/db";
 
 const BaseInfo = () => {
   const [createClass, setCreateClass] = useState({ Races: [{ name: "none" }] });
 
-  const [options, setOptions] = useState({
-    names: [],
+  const [Name, setName] = useState({
+    name: "",
+    Race: "",
   });
 
   const [Race, setRace] = useState({
@@ -22,10 +24,35 @@ const BaseInfo = () => {
     description: "",
   });
 
+  const raceOptions = createClass.Races.map((Race) => {
+    return { text: Race.name, value: Race.name };
+  });
+
   // Update createClass.Races
   // 1. Get the current Races
   // 2. Push newRace into the current Races.
   // 3. Update the createClass with the newRace.
+
+  function changeName(e, { name, value }) {
+    const newName = { ...Name };
+    newName[name] = value;
+    setName(newName);
+  }
+
+  function addName() {
+    /* 1. Copy the create class
+       2. Find the Race Selected
+       3. Add the name inputted into the Race
+       4. Update the class */
+    const newClass = { ...createClass };
+    const raceSelected = newClass.Races.find((race) => {
+      return race.name === Name.Race;
+    });
+    raceSelected.names = raceSelected.names || [];
+    raceSelected.names.push(Name.name);
+    setName({ name: "", Race: "" });
+    setCreateClass(newClass);
+  }
 
   function addRace(e) {
     const newClass = { ...createClass };
@@ -41,24 +68,19 @@ const BaseInfo = () => {
     setRace(newRace);
   }
 
-  function changeOptions(e, { name, value }) {
-    const newOptions = { ...options };
-    newOptions[name] = newOptions[name] || [];
-    newOptions[name].push({ text: value, value: value });
-    setOptions(newOptions);
-  }
-
   function changeClass(e, { name, value }) {
     const newClass = { ...createClass };
     newClass[name] = value;
     setCreateClass(newClass);
   }
 
-  console.log(createClass.Races);
+  function classSubmit() {
+    addClass(createClass);
+  }
   return (
     <React.Fragment>
       <Form>
-        <Grid>
+        <Grid stackable>
           <Grid.Row columns="3">
             <Grid.Column>
               <Form.Field>
@@ -105,7 +127,7 @@ const BaseInfo = () => {
             <Grid.Column>
               <Form.Field>
                 <label htmlFor="RaceDescription" name="description">
-                  Race DesctipTion: {Race.description}
+                  Race Desctiption: {Race.description}
                 </label>
                 <TextArea
                   id="RaceDescription"
@@ -124,22 +146,33 @@ const BaseInfo = () => {
 
             <Grid.Column>
               <Form.Field>
-                <label>Recommended Names: </label>
+                <label>Name:</label>
+                <Input name="name" value={Name.name} onChange={changeName} />
+              </Form.Field>
+            </Grid.Column>
+
+            <Grid.Column>
+              <Form.Field>
+                <label>Select Race: </label>
                 <Dropdown
-                  options={options.names}
+                  options={raceOptions}
                   search
                   selection
                   fluid
-                  multiple
-                  allowAdditions
-                  name="names"
-                  value={createClass.names || []}
-                  onAddItem={changeOptions}
-                  onChange={changeClass}
-                  placeholder="Add recommended Names"
+                  name="Race"
+                  value={Name.Race}
+                  onChange={changeName}
+                  placeholder={"Add recommended Names"}
                 />
               </Form.Field>
             </Grid.Column>
+
+            <Grid.Column>
+              <Form.Field>
+                <Button onClick={addName}>Add Recommended Name</Button>
+              </Form.Field>
+            </Grid.Column>
+
             <Grid.Column>
               <Form.Field>
                 <label htmlFor="baseHp">Base HP: {createClass.baseHp}</label>
@@ -151,6 +184,7 @@ const BaseInfo = () => {
                 />
               </Form.Field>
             </Grid.Column>
+
             <Grid.Column>
               <Form.Field>
                 <label htmlFor="baseDamage" name="baseDamage">
@@ -168,7 +202,9 @@ const BaseInfo = () => {
 
           <Grid.Row columns="2">
             <Grid.Column>
-              <Button fluid>Sumbit</Button>
+              <Button fluid onClick={classSubmit}>
+                Submit
+              </Button>
             </Grid.Column>
           </Grid.Row>
         </Grid>
