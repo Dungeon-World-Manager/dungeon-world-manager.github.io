@@ -6,14 +6,40 @@ import {
   Input,
   Label,
   Dropdown,
+  TextArea,
+  Button,
 } from "semantic-ui-react";
 
 const BaseInfo = () => {
-  const [createClass, setCreateClass] = useState({});
+  const [createClass, setCreateClass] = useState({ Races: [{ name: "none" }] });
 
   const [options, setOptions] = useState({
     names: [],
   });
+
+  const [Race, setRace] = useState({
+    name: "",
+    description: "",
+  });
+
+  // Update createClass.Races
+  // 1. Get the current Races
+  // 2. Push newRace into the current Races.
+  // 3. Update the createClass with the newRace.
+
+  function addRace(e) {
+    const newClass = { ...createClass };
+    newClass.Races = newClass.Races || [];
+    newClass.Races.push(Race);
+    setRace({ name: "", description: "" });
+    setCreateClass(newClass);
+  }
+
+  function changeRace(e, { name, value }) {
+    const newRace = { ...Race };
+    newRace[name] = value;
+    setRace(newRace);
+  }
 
   function changeOptions(e, { name, value }) {
     const newOptions = { ...options };
@@ -27,11 +53,75 @@ const BaseInfo = () => {
     newClass[name] = value;
     setCreateClass(newClass);
   }
+
+  console.log(createClass.Races);
   return (
     <React.Fragment>
       <Form>
         <Grid>
           <Grid.Row columns="3">
+            <Grid.Column>
+              <Form.Field>
+                <label htmlFor="className" name="className">
+                  Class Name: {createClass.className}
+                </label>
+                <Input
+                  id="className"
+                  name="className"
+                  value={createClass.className}
+                  onChange={changeClass}
+                />
+              </Form.Field>
+            </Grid.Column>
+
+            <Grid.Column>
+              <Form.Field>
+                <label htmlFor="classDescription" name="classDescription">
+                  Class Description: {createClass.classDescription}
+                </label>
+                <TextArea
+                  id="classDescription"
+                  name="classDescription"
+                  value={createClass.classDescription}
+                  onChange={changeClass}
+                />
+              </Form.Field>
+            </Grid.Column>
+
+            <Grid.Column>
+              <Form.Field>
+                <label htmlFor="RaceName" name="name">
+                  Race Name: {Race.name}
+                </label>
+                <Input
+                  id="RaceName"
+                  name="name"
+                  value={Race.name}
+                  onChange={changeRace}
+                />
+              </Form.Field>
+            </Grid.Column>
+
+            <Grid.Column>
+              <Form.Field>
+                <label htmlFor="RaceDescription" name="description">
+                  Race DesctipTion: {Race.description}
+                </label>
+                <TextArea
+                  id="RaceDescription"
+                  name="description"
+                  value={Race.description}
+                  onChange={changeRace}
+                />
+              </Form.Field>
+            </Grid.Column>
+
+            <Grid.Column>
+              <Form.Field>
+                <Button onClick={addRace}>Add Race</Button>
+              </Form.Field>
+            </Grid.Column>
+
             <Grid.Column>
               <Form.Field>
                 <label>Recommended Names: </label>
@@ -52,7 +142,7 @@ const BaseInfo = () => {
             </Grid.Column>
             <Grid.Column>
               <Form.Field>
-                <label for="baseHp">Base HP: {createClass.baseHp}</label>
+                <label htmlFor="baseHp">Base HP: {createClass.baseHp}</label>
                 <Input
                   id="baseHp"
                   name="baseHp"
@@ -63,7 +153,7 @@ const BaseInfo = () => {
             </Grid.Column>
             <Grid.Column>
               <Form.Field>
-                <label for="baseDamage" name="baseDamage">
+                <label htmlFor="baseDamage" name="baseDamage">
                   Base Damage: {createClass.baseDamage}
                 </label>
                 <Input
@@ -74,18 +164,11 @@ const BaseInfo = () => {
                 />
               </Form.Field>
             </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row columns="2">
             <Grid.Column>
-              <Form.Field>
-                <label for="className" name="className">
-                  Class Name: {createClass.className}
-                </label>
-                <Input
-                  id="className"
-                  name="className"
-                  value={createClass.className}
-                  onChange={changeClass}
-                />
-              </Form.Field>
+              <Button fluid>Sumbit</Button>
             </Grid.Column>
           </Grid.Row>
         </Grid>
