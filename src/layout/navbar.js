@@ -15,7 +15,7 @@ const Navbar = ({ closeSidebar }) => {
         as={Menu}
         animation="overlay"
         icon="labeled"
-        color="grey"
+        color="black"
         inverted
         vertical
         visible
