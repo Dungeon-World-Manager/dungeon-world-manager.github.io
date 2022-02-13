@@ -12,7 +12,7 @@ export default function (state, setter) {
             email: '',
         },
     };
-    console.log(state);
+    // console.log(state);
     const oldAuth = state.auth || {};
     // console.log('oldAuth', oldAuth);
     const auth = { ...initialAuth, ...oldAuth };
@@ -34,9 +34,15 @@ export default function (state, setter) {
         updateState();
     }
 
+    function updateUser(user) {
+        auth.user = user;
+        updateState();
+    }
+
     return {
         ...auth,
         signInUser,
         logoutUser,
+        updateUser,
     };
 }

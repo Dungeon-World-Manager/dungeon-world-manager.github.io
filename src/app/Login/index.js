@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Button, Header, Modal, Input, Form } from 'semantic-ui-react';
-import { googleSignIn } from '../../functions/db';
+import { googleSignIn, updateUserInfo } from '../../functions/db';
 import State from '../../state';
 import { Link } from 'gatsby';
 
@@ -12,10 +12,14 @@ const Login = () => {
 
     React.useEffect(() => {
         // if user is signed in, welcome them
-        // if (stateAuth.user.id) {
-        //     document.querySelector('#signedInLink').click();
-        // }
+        if (stateAuth.user.id && !stateAuth.user.isNew) {
+            goHome();
+        }
     });
+
+    function goHome() {
+        document.querySelector('#signedInLink').click();
+    }
 
     async function attemptSignIn() {
         const user = await googleSignIn();
@@ -28,6 +32,24 @@ const Login = () => {
         stateAuth.signInUser(stateAuth.lastUser);
     }
 
+    function changeUserName(e, { value }) {
+        setUserName(value);
+    }
+
+    function changeIsLeftHanded(checked) {
+        setIsLeftHanded(checked);
+    }
+
+    async function attemptUpdateUser() {
+        const updatedUser = await updateUserInfo({
+            ...stateAuth.user,
+            userName,
+            isLeftHanded,
+            isNew: false,
+        });
+        stateAuth.updateUser(updatedUser);
+    }
+
     return (
         <React.Fragment>
             {/* 
@@ -36,21 +58,43 @@ const Login = () => {
                 Is the user left/right handed? Move nav on left or right hand
                 Skip options?
             */}
-            {stateAuth.user ? (
-                <Modal>
+            {stateAuth.user.isNew ? (
+                <Modal open={true}>
                     <Modal.Header>
                         Welcome, {stateAuth.user.userName}
                     </Modal.Header>
-                    <Modal.Description>
+                    <Modal.Content>
                         <Form>
                             <Form.Field>
                                 <label>Username</label>
                                 <Input
-                                    value={userName || state.user.userName}
+                                    value={userName || stateAuth.user.userName}
+                                    onChange={changeUserName}
+                                />
+                            </Form.Field>
+                            <Form.Field>
+                                <label>Left or Right Handed</label>
+                                <Button
+                                    color={isLeftHanded ? 'green' : null}
+                                    content='Left Handed'
+                                    onClick={() => changeIsLeftHanded(true)}
+                                />
+                                <Button
+                                    color={!isLeftHanded ? 'green' : null}
+                                    content='Right Handed'
+                                    onClick={() => changeIsLeftHanded(false)}
                                 />
                             </Form.Field>
                         </Form>
-                    </Modal.Description>
+                    </Modal.Content>
+                    <Modal.Actions>
+                        <Button content='Skip for now' onClick={goHome} />
+                        <Button
+                            color='green'
+                            content='Save Changes'
+                            onClick={attemptUpdateUser}
+                        />
+                    </Modal.Actions>
                 </Modal>
             ) : null}
             <Link to='/' id='signedInLink'></Link>
