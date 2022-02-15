@@ -13,7 +13,7 @@ const ChooseClass = () => {
         href="#Character-details-page"
         header="Character Name"
         meta="Character Class"
-        description="Chatacter Description/Backstory"
+        description="Character Description/Backstory"
       />
     </React.Fragment>
   );
