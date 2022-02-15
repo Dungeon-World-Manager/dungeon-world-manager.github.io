@@ -102,3 +102,35 @@ export async function retrieveCharacterInfo(user) {
     return {};
   }
 }
+
+// Adding data from the Create Classes page
+export async function addClass(newData) {
+    try {
+        const testCollection = collection(db, 'classes');
+        const dataDoc = await addDoc(testCollection, newData);
+        return { ...newData, id: dataDoc.id };
+    } catch {
+        return {};
+    }
+}
+
+// Get all public classes from db
+export async function getClasses() {
+    const classes = [];
+    try {
+        const classesCollection = collection(db, 'classes');
+        // const publicClasses = query(
+        //     classesCollection,
+        //     where('isPrivate', '!=', false)
+        // );
+        const dataDoc = await getDocs(classesCollection);
+        if (dataDoc.empty) return classes;
+        for (let doc of dataDoc.docs) {
+            const data = doc.data();
+            classes.push({ ...data, id: doc.id });
+        }
+        return classes;
+    } catch {
+        return classes;
+    }
+}
