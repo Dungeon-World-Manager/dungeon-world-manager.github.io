@@ -1,4 +1,5 @@
 node_modules/
 .cache/
 firebase-cred.js
-public
+public/
+README.md
