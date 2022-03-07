@@ -5,6 +5,7 @@ import "semantic-ui-css/semantic.css";
 import Logo from "../images/dungeon-world.png";
 
 const Layout = ({ children }) => {
+  // * Opens and closes sidebar Menu
   const [sidebar, setSidebar] = useState(false);
 
   function openSidebar() {
@@ -18,7 +19,7 @@ const Layout = ({ children }) => {
   return (
     <React.Fragment>
       {/* // ! Web Navigation */}
-      <Menu color="grey" inverted fluid>
+      <Menu color="red" inverted fluid>
         <Menu.Item>
           <Image src={Logo} size="small" />
         </Menu.Item>
@@ -34,7 +35,7 @@ const Layout = ({ children }) => {
       {sidebar ? <Navbar closeSidebar={closeSidebar} /> : null}
 
       {/* // ! App Content */}
-      <Segment color="red" padded>
+      <Segment color="black" padded>
         {children}
       </Segment>
     </React.Fragment>

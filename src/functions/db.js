@@ -10,7 +10,8 @@ import {
     getDoc, // get individual doc
     getDocs, // get array of docs
     query, // filters data (dbRef, whereStatement)
-    onSnapshot, // listens for data changes
+    onSnapshot,
+    updateDoc, // listens for data changes
 } from 'firebase/firestore';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
@@ -45,6 +46,7 @@ export async function googleSignIn() {
         if (usersSnap.empty) {
             const newUserDoc = await addDoc(userCollection, userData);
             userData.id = newUserDoc.id;
+            userData.isNew = true;
         } else {
             const { userName } = usersSnap.docs[0].data();
             userData.userName = userName;
@@ -71,5 +73,45 @@ export async function signInWithId(id) {
         return userInfo;
     } catch {
         return userInfo;
+    }
+}
+
+export async function updateUserInfo(user) {
+    const userData = { ...user };
+    try {
+        await updateDoc(doc(db, 'users', userData.id), userData);
+    } catch {}
+    return userData;
+}
+
+// Adding data from the Create Classes page
+export async function addClass(newData) {
+    try {
+        const testCollection = collection(db, 'classes');
+        const dataDoc = await addDoc(testCollection, newData);
+        return { ...newData, id: dataDoc.id };
+    } catch {
+        return {};
+    }
+}
+
+// Get all public classes from db
+export async function getClasses() {
+    const classes = [];
+    try {
+        const classesCollection = collection(db, 'classes');
+        // const publicClasses = query(
+        //     classesCollection,
+        //     where('isPrivate', '!=', false)
+        // );
+        const dataDoc = await getDocs(classesCollection);
+        if (dataDoc.empty) return classes;
+        for (let doc of dataDoc.docs) {
+            const data = doc.data();
+            classes.push({ ...data, id: doc.id });
+        }
+        return classes;
+    } catch {
+        return classes;
     }
 }
