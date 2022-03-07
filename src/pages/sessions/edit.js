@@ -48,6 +48,9 @@ const Edit = ({closeEditSession}) => {
             />
             <Form.Field
               control={Input}
+              type="number"
+              min="1"
+              max="5"
               label="Duration of Session"
               placeholder="Edit Session Duration..."
             />
@@ -55,7 +58,7 @@ const Edit = ({closeEditSession}) => {
               control={Input}
               type="number"
               min="0"
-              max="8"
+              max="6"
               label="Number of Players"
               placeholder="Edit Number of Players..."
             />

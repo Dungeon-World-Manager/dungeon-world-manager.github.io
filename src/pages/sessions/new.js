@@ -5,13 +5,13 @@ import {
   Button,
   Segment,
   TextArea,
-  Header,
+  Header
 } from "semantic-ui-react";
 
-const New = ({closeNewSession}) => {
+const New = ({ closeNewSession }) => {
   return (
     <React.Fragment>
-      <Segment>
+      <Segment piled>
         <Header as="h1">New Session</Header>
         <Form>
           <Form.Group widths="equal">
@@ -41,13 +41,19 @@ const New = ({closeNewSession}) => {
               label="Meeting Time"
               placeholder="Enter Meeting Time..."
             />
+            {/* // TODO Frequency of days/weeks */}
             <Form.Field
               control={Input}
               label="Meeting Days"
               placeholder="Enter Meeting Days..."
             />
+          </Form.Group>
+          <Form.Group widths="equal">
             <Form.Field
               control={Input}
+              type="number"
+              min="1"
+              max="5"
               label="Duration of Session"
               placeholder="Enter Session Duration..."
             />
@@ -55,7 +61,7 @@ const New = ({closeNewSession}) => {
               control={Input}
               type="number"
               min="0"
-              max="8"
+              max="6"
               label="Number of Players"
               placeholder="Enter Number of Players..."
             />
@@ -69,7 +75,9 @@ const New = ({closeNewSession}) => {
           </Form.Group>
 
           <Button.Group fluid>
-            <Button color="red" onClick={closeNewSession} >Cancel</Button>
+            <Button color="red" onClick={closeNewSession}>
+              Cancel
+            </Button>
             <Button.Or />
             <Button color="green">Save</Button>
           </Button.Group>
