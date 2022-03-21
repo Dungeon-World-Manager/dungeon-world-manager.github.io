@@ -4,56 +4,13 @@ import "semantic-ui-css/semantic.css";
 import New from "./new";
 import Edit from "./edit";
 import State from "../../state";
-import { doc, setDoc, getDoc } from "firebase/firestore";
-import cred from "../../../firebase-cred";
+import { getSessions } from "../../functions/db";
 
 const Session = () => {
   const state = React.useContext(State);
   var auth = state.auth;
 
-  // var _db = firebase.firestore();
-  var _db = cred;
-
-  // createTime: "",
-  //   description: "",
-  //   meetingDay: "",
-  //   meetingTime: "",
-  //   members: "",
-  //   numbPlayers: "",
-  //   sessionDuration: "",
-  //   userId: ""
-
-  function allSessions() {
-
-    getDoc(doc(_db, "sessions"))
-
-    _db
-      .collection("sessions")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach(function (doc) {
-          let session = doc.data();
-          <Grid.Row stackable>
-            <Card.Group itemsPerRow="2">
-              <Card>
-                <Card.Content>
-                  <Card.Header>Session Name</Card.Header>
-                  <Card.Meta>{session.userId}</Card.Meta>
-                  <Card.Description>{session.description}</Card.Description>
-                  <Card.Meta>{session.members}</Card.Meta>
-                </Card.Content>
-                <Card.Content extra>
-                  <Button.Group fluid>
-                    <Button color="blue">Join Session</Button>
-                  </Button.Group>
-                </Card.Content>
-              </Card>
-            </Card.Group>
-          </Grid.Row>;
-        });
-      });
-  }
-
+  // Opening and closing form functions
   const [newSessionOpen, setNewSessionOpen] = React.useState(false);
 
   function openNewSession() {
@@ -74,6 +31,22 @@ const Session = () => {
     setEditSessionOpen(false);
   }
 
+  //Retrieving data functions
+//   const retrieveAll = React.useRef(false);
+
+//   React.useEffect(() => {
+//     attemptLoadSessions();
+//   });
+
+//   async function attemptLoadSessions() {
+//     if (retrieveAll.current) return;
+//     retrieveAll.current = true;
+//     try {
+//         const sessions = await getSessions();
+//         stateSessions.loadPublicSession(sessions);
+//     } catch {}
+// }
+
   return (
     <React.Fragment>
       <Grid centered columns="2">
@@ -92,9 +65,9 @@ const Session = () => {
               <Card>
                 <Card.Content>
                   <Card.Header>Session Name</Card.Header>
-                  <Card.Meta>Session Creator</Card.Meta>
-                  <Card.Description>Session Description</Card.Description>
-                  <Card.Meta>Members</Card.Meta>
+                  <Card.Meta>{getSessions.userId}</Card.Meta>
+                  <Card.Description>{getSessions.description}</Card.Description>
+                  <Card.Meta>{getSessions.members}</Card.Meta>
                 </Card.Content>
                 <Card.Content extra>
                   <Button.Group fluid>
@@ -109,7 +82,23 @@ const Session = () => {
             </Card.Group>
           </Grid.Row>
         ) : (
-          { allSessions }
+          <Grid.Row stackable>
+            <Card.Group itemsPerRow="2">
+              <Card>
+                <Card.Content>
+                  <Card.Header>Session Name</Card.Header>
+                  <Card.Meta>{getSessions.userId}</Card.Meta>
+                  <Card.Description>{getSessions.description}</Card.Description>
+                  <Card.Meta>{getSessions.members}</Card.Meta>
+                </Card.Content>
+                <Card.Content extra>
+                  <Button.Group fluid>
+                    <Button color="blue">Join</Button>
+                  </Button.Group>
+                </Card.Content>
+              </Card>
+            </Card.Group>
+          </Grid.Row>
         )}
       </Grid>
 
