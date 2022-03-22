@@ -43,6 +43,7 @@ const ClassesList = () => {
 				</Grid.Row>
 			</Grid>
 			<Card.Group>
+				{/* Loop through classes and their info cards */}
 				{stateClasses.publicClasses.flatMap(curClass => {
 					return (
 						<CustomCard
