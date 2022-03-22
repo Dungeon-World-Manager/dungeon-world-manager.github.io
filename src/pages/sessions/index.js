@@ -1,4 +1,4 @@
-// import Sessions from '../../app/Sessions';
+// import Sessions from '../../app/Session';
 // export default Sessions;
 
 import Session from './session';

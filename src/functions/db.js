@@ -115,3 +115,35 @@ export async function getClasses() {
         return classes;
     }
 }
+
+// Get all public sessions from db
+export async function getSessions() {
+    const sessions = [];
+    try {
+        const sessionsCollection = collection(db, 'sessions');
+        // const publicSessions = query(
+        //     sessionsCollection,
+        //     where('isPrivate', '!=', false)
+        // );
+        const dataDoc = await getDocs(sessionsCollection);
+        if (dataDoc.empty) return sessions;
+        for (let doc of dataDoc.docs) {
+            const data = doc.data();
+            sessions.push({ ...data, id: doc.id });
+        }
+        return sessions;
+    } catch {
+        return sessions;
+    }
+}
+
+// Adding data from the Create Sessions page
+export async function addSession(addData) {
+    try {
+        const addCollection = collection(db, 'sessions');
+        const dataDoc = await addDoc(addCollection, addData);
+        return { ...addData, id: dataDoc.id };
+    } catch {
+        return {};
+    }
+}
