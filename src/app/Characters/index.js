@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Card } from 'semantic-ui-react';
 import { getCharacterInfo } from '../../functions/db';
 import CustomCard from '../components/CustomCard';
@@ -13,7 +13,7 @@ const CharactersList = () => {
 		loadCharacterData();
 	});
 	async function loadCharacterData() {
-		if (dataLoaded == true) {
+		if (dataLoaded === true) {
 			return;
 		} else {
 			var characters = await getCharacterInfo();
