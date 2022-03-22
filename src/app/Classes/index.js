@@ -54,6 +54,7 @@ const ClassesList = () => {
 								curClass.classDescription || 'No description.'
 							}
 							to={`/classes/view#${curClass.id}`}
+							editTo={`/classes/edit#${curClass.id}`}
 						/>
 					);
 				})}
