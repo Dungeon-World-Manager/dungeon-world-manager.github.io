@@ -84,14 +84,6 @@ export async function updateUserInfo(user) {
     return userData;
 }
 
-export async function updateUserInfo(user) {
-    const userData = { ...user };
-    try {
-        await updateDoc(doc(db, 'users', userData.id), userData);
-    } catch {}
-    return userData;
-}
-
 // Adding data from the Create Classes page
 export async function addClass(newData) {
     try {
