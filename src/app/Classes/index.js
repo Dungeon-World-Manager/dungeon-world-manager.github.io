@@ -24,6 +24,8 @@ const ClassesList = () => {
 		} catch {}
 	}
 
+	console.log(stateAuth.user.id);
+
 	return (
 		<React.Fragment>
 			<Grid>
@@ -45,9 +47,10 @@ const ClassesList = () => {
 			<Card.Group>
 				{/* Loop through classes and their info cards */}
 				{stateClasses.publicClasses.flatMap(curClass => {
+					console.log(curClass.userid);
 					return (
 						<CustomCard
-							isAuthor={curClass.userId === stateAuth.user.id}
+							isAuthor={curClass.userid === stateAuth.user.id}
 							key={`/classes/view#${curClass.id}`}
 							meta={curClass.userName}
 							header={curClass.className || ''}
