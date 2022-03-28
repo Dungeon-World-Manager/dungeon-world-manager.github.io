@@ -3,6 +3,7 @@ import testState from './testState';
 import authState from './authState';
 import classesState from './classesState';
 import charactersState from './charactersState';
+import sessionsState from './sessionsState';
 
 const State = React.createContext();
 
@@ -14,6 +15,7 @@ export const Provider = ({ children }) => {
 		auth: authState(state, setState),
 		classes: classesState(state, setState),
 		characters: charactersState(state, setState),
+		sessions: sessionsState(state, setState),
 	};
 	return <State.Provider value={stateValues}>{children}</State.Provider>;
 };
