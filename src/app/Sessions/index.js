@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Grid, Header, Card, Icon, Button } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.css';
-import New from './new';
-import Edit from './edit';
+// import New from './new';
+// import Edit from './edit';
 import State from '../../state';
 import { getSessions } from '../../functions/db';
 
@@ -62,9 +62,9 @@ const Session = () => {
 					/>
 				</Grid.Column>
 
-				{newSessionOpen ? (
+				{/* {newSessionOpen ? (
 					<New closeNewSession={closeNewSession} />
-				) : null}
+				) : null} */}
 
 				{auth.user.id ? (
 					<Grid.Row stackable>
@@ -116,9 +116,9 @@ const Session = () => {
 				)}
 			</Grid>
 
-			{editSessionOpen ? (
+			{/* {editSessionOpen ? (
 				<Edit closeEditSession={closeEditSession} />
-			) : null}
+			) : null} */}
 		</React.Fragment>
 	);
 };
