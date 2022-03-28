@@ -83,3 +83,93 @@ export async function updateUserInfo(user) {
     } catch {}
     return userData;
 }
+
+// Adding data from the Create Classes page
+export async function addClass(newData) {
+    try {
+        const testCollection = collection(db, 'classes');
+        const dataDoc = await addDoc(testCollection, newData);
+        return { ...newData, id: dataDoc.id };
+    } catch {
+        return {};
+    }
+}
+
+// Get all public classes from db
+export async function getClasses() {
+    const classes = [];
+    try {
+        const classesCollection = collection(db, 'classes');
+        // const publicClasses = query(
+        //     classesCollection,
+        //     where('isPrivate', '!=', false)
+        // );
+        const dataDoc = await getDocs(classesCollection);
+        if (dataDoc.empty) return classes;
+        for (let doc of dataDoc.docs) {
+            const data = doc.data();
+            classes.push({ ...data, id: doc.id });
+        }
+        return classes;
+    } catch {
+        return classes;
+    }
+}
+
+// Get all public sessions from db
+export async function getSessions() {
+    const sessions = [];
+    try {
+        const sessionsCollection = collection(db, 'sessions');
+        // const publicSessions = query(
+        //     sessionsCollection,
+        //     where('isPrivate', '!=', false)
+        // );
+        const dataDoc = await getDocs(sessionsCollection);
+        if (dataDoc.empty) return sessions;
+        for (let doc of dataDoc.docs) {
+            const data = doc.data();
+            sessions.push({ ...data, id: doc.id });
+        }
+        return sessions;
+    } catch {
+        return sessions;
+    }
+}
+
+export async function getCharacterInfo() {
+    //Create an array of characters
+    const characters = [];
+    try {
+        //Get a collection reference
+        const charactersCollection = collection(db, 'characters');
+        //Get the documents from the collection reference
+        const dataDoc = await getDocs(charactersCollection);
+
+        //If there are no documents, return the empty array.
+        if (dataDoc.empty) return characters;
+
+        //Yes there are documents, loop through each one and get the data.
+        for (let doc of dataDoc.docs) {
+            const data = doc.data();
+            characters.push({ ...data, id: doc.id });
+        }
+
+        //Return the array of documents
+        return characters;
+    } catch {
+        //If it fails return the empty array.
+        return characters;
+    }
+}
+
+// Adding data from the Create Sessions page
+export async function addSession(addData) {
+    try {
+        const addCollection = collection(db, 'sessions');
+        const dataDoc = await addDoc(addCollection, addData);
+        return { ...addData, id: dataDoc.id };
+    } catch {
+        return {};
+    }
+}
