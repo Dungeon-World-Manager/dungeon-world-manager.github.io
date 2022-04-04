@@ -1,23 +1,36 @@
 function sessionsState(state, setter) {
-	const initialSessions = {
-		list: [],
-	};
-	const oldSessions = state.sessions || {};
-	const sessions = { ...initialSessions, ...oldSessions };
+  const initialSessions = {
+    list: [],
+    session: {},
+  };
+  const oldSessions = state.sessions || {};
+  const sessions = { ...initialSessions, ...oldSessions };
 
-	function updateState() {
-		setter({ ...state, sessions: sessions });
-	}
+  function updateState() {
+    setter({ ...state, sessions: sessions });
+  }
 
-	function clearSessions() {
-		sessions.list = [];
-		updateState();
-	}
+  function clearSessions() {
+    sessions.list = [];
+    updateState();
+  }
 
-	return {
-		...sessions,
-		clearSessions,
-	};
+  function loadSessionsList(list) {
+    sessions.list = list;
+    updateState();
+  }
+
+  function loadSession(session) {
+    sessions.session = session;
+    updateState();
+  }
+
+  return {
+    ...sessions,
+    clearSessions,
+    loadSessionsList,
+    loadSession,
+  };
 }
 
 export default sessionsState;

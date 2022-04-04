@@ -1,4 +1,4 @@
-import app from 'gatsby-plugin-firebase-v9.0';
+import app from "gatsby-plugin-firebase-v9.0";
 
 import {
 	addDoc, // adds new doc with random key (dbRef, data);
@@ -118,7 +118,7 @@ export async function getClasses() {
 
 // Get all public sessions from db
 export async function getSessions() {
-	const sessions = [];
+const sessions = [];
 	try {
 		const sessionsCollection = collection(db, 'sessions');
 		const dataDoc = await getDocs(sessionsCollection);
@@ -131,6 +131,17 @@ export async function getSessions() {
 		return sessions;
 	}
 }
+
+// Get single public sessions from db
+export async function getSession(id) {
+  try {
+    const dataDoc = await getDoc(doc(db, "sessions", id));
+    return dataDoc.data();
+  } catch {
+    return {};
+  }
+}
+
 
 export async function getCharacterInfo() {
 	//Create an array of characters
