@@ -11,7 +11,7 @@ const BaseInfo = () => {
 
 	function classSubmit(createClass) {
 		//This is going to tie the user with the class that is created.
-		createClass.userid = auth.user.id;
+		createClass.userId = auth.user.id;
 		addClass(createClass);
 	}
 
