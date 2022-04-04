@@ -13,6 +13,8 @@ import { addSession } from "../../functions/db";
 const New = ({ closeNewSession }) => {
   const state = React.useContext(State);
   const auth = state.auth;
+  const sessions = state.sessions;
+  console.log(sessions);
 
   const [createSession, setCreateSession] = useState({
     createTime: "",
@@ -37,13 +39,6 @@ const New = ({ closeNewSession }) => {
     createSession.userId = auth.user.id;
     addSession(createSession);
     console.log(addSession);
-  }
-
-  //This should take the user input which is linked to the tag control and push it to the state.
-  function createNewSession() {
-    const newCreateSession = { ...createSession };
-    newCreateSession = value;
-    setCreateNewSessionForm(newCreateSession);
   }
 
   return (
