@@ -1,15 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Grid, Header, Card, Icon, Button } from "semantic-ui-react";
 import "semantic-ui-css/semantic.css";
 // import New from './new';
 // import Edit from './edit';
 import State from "../../state";
 import { getSessions } from "../../functions/db";
-import reactDom from "react-dom";
+import { Link } from "gatsby";
 
 const Session = () => {
+  const [loadedData, setLoadedData] = React.useState(false);
   const state = React.useContext(State);
-  var auth = state.auth;
+  const stateSessions = state.sessions;
+  const stateAuth = state.auth;
+
+  React.useEffect(() => {
+    attemptLoadSessions();
+  });
+
+  async function attemptLoadSessions() {
+    if (loadedData) return;
+    setLoadedData(true);
+    try {
+      const sessions = await getSessions();
+      stateSessions.loadSessionsList(sessions);
+    } catch {
+      console.log("Error loading sessions");
+    }
+  }
+  console.log(stateAuth.user.id);
 
   // Opening and closing form functions
   const [newSessionOpen, setNewSessionOpen] = React.useState(false);

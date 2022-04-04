@@ -50,9 +50,9 @@ const ClassesList = () => {
 							isAuthor={curClass.userId === stateAuth.user.id}
 							key={`/classes/view#${curClass.id}`}
 							meta={curClass.userName}
-							header={curClass.className || ''}
+							header={curClass.name || ''}
 							description={
-								curClass.classDescription || 'No description.'
+								curClass.description || 'No description.'
 							}
 							to={`/classes/view#${curClass.id}`}
 							editTo={`/classes/edit#${curClass.id}`}
