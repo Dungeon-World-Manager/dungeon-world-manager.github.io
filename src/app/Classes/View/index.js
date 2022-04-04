@@ -13,8 +13,6 @@ const ClassesView = ({ location: { hash } }) => {
 	const curClass =
 		stateClasses.publicClasses.find(c => c.id === classId) ?? {};
 
-	console.log(curClass);
-
 	React.useEffect(() => {
 		attemptLoadClasses();
 	});
@@ -27,6 +25,8 @@ const ClassesView = ({ location: { hash } }) => {
 			stateClasses.loadPublicClasses(classes);
 		} catch {}
 	}
+
+	console.log(curClass);
 
 	return (
 		<React.Fragment>
@@ -42,7 +42,17 @@ const ClassesView = ({ location: { hash } }) => {
 						/>
 					</Grid.Column>
 					<Grid.Column>
-						<Header as='h1'>Class Name</Header>
+						<Header as='h1'>
+							{curClass.name ?? 'Unknown Class'}
+						</Header>
+					</Grid.Column>
+					<Grid.Column>
+						{curClass.id ? `Created by ${curClass.userId}` : ''}
+					</Grid.Column>
+				</Grid.Row>
+				<Grid.Row columns='2'>
+					<Grid.Column>
+						<p>{curClass.description}</p>
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>

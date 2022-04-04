@@ -42,7 +42,7 @@ const ClassesList = () => {
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>
-			<Card.Group>
+			<Card.Group itemsPerRow={3} stackable>
 				{/* Loop through classes and their info cards */}
 				{stateClasses.publicClasses.flatMap(curClass => {
 					return (
