@@ -20,16 +20,15 @@ function sessionsState(state, setter) {
     updateState();
   }
 
-  function loadSession(session) {
-    sessions.session = session;
-    updateState();
-  }
+  //   function loadSession(session) {
+  //     sessions.session = session;
+  //     updateState();
+  //   }
 
   return {
     ...sessions,
     clearSessions,
     loadSessionsList,
-    loadSession,
   };
 }
 
