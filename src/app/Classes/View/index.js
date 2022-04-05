@@ -26,8 +26,6 @@ const ClassesView = ({ location: { hash } }) => {
 		} catch {}
 	}
 
-	console.log(curClass);
-
 	return (
 		<React.Fragment>
 			<Grid stackable>
