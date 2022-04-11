@@ -13,6 +13,8 @@ import { addSession } from "../../functions/db";
 const New = ({ closeNewSession }) => {
   const state = React.useContext(State);
   const auth = state.auth;
+  const sessions = state.sessions;
+  console.log(sessions);
 
   const [createSession, setCreateSession] = useState({
     createTime: "",
@@ -45,16 +47,7 @@ const New = ({ closeNewSession }) => {
         <Header as="h1">New Session</Header>
         <Form>
           <Form.Group widths="equal">
-            <Form.Field
-              control={Input}
-              label="Creator Name"
-              placeholder="Enter Creator Name..."
-              name="creatorName"
-              value={createSession.creatorName}
-              onChange={changeSession}
-            />
-            <Form.Field
-              control={Input}
+            <Form.Input
               type="date"
               label="Creation Date"
               placeholder="Enter Creation Date..."
@@ -64,18 +57,16 @@ const New = ({ closeNewSession }) => {
             />
           </Form.Group>
           <Form.Group widths="equal">
-            <Form.Field
-              control={TextArea}
+            <Form.TextArea
+              value={createSession.description}
               label="Session Description"
               placeholder="Enter Description..."
               name="description"
-              value={createSession.description}
               onChange={changeSession}
             />
           </Form.Group>
           <Form.Group widths="equal">
-            <Form.Field
-              control={Input}
+            <Form.Input
               type="time"
               label="Meeting Time"
               placeholder="Enter Meeting Time..."
@@ -83,29 +74,21 @@ const New = ({ closeNewSession }) => {
               value={createSession.meetingTime}
               onChange={changeSession}
             />
-            <Form.Field
-              control={Input}
+            <Form.Input
               label="Meeting Days"
               placeholder="Enter Meeting Days..."
               name="meetingDay"
               value={createSession.meetingDay}
               onChange={changeSession}
             />
-          </Form.Group>
-          <Form.Group widths="equal">
-            <Form.Field
-              control={Input}
-              type="number"
-              min="1"
-              max="5"
+            <Form.Input
               label="Duration of Session"
               placeholder="Enter Session Duration..."
               name="sessionDuration"
               value={createSession.sessionDuration}
               onChange={changeSession}
             />
-            <Form.Field
-              control={Input}
+            <Form.Input
               type="number"
               min="0"
               max="6"
@@ -117,8 +100,7 @@ const New = ({ closeNewSession }) => {
             />
           </Form.Group>
           <Form.Group widths="equal">
-            <Form.Field
-              control={Input}
+            <Form.Input
               label="Members"
               placeholder="Enter Members..."
               name="members"

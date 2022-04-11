@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "gatsby";
 import { Button, Grid, Header } from "semantic-ui-react";
 import State from "../../../state";
-import { getSessions } from "../../../functions/db";
+import { getSession } from "../../../functions/db";
 
 const SessionView = ({ location: { hash } }) => {
   const [loadedData, setLoadedData] = React.useState(false);
@@ -19,8 +19,9 @@ const SessionView = ({ location: { hash } }) => {
     if (loadedData) return;
     setLoadedData(true);
     try {
-      const sessions = await getSessions();
-      stateSessions.loadSessionsList(sessions);
+      const sessions = await getSession(sessionId);
+      stateSessions.loadSession(sessions);
+      console.log(stateSessions.session);
     } catch {
       console.log("Error loading sessions");
     }
