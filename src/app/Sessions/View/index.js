@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "gatsby";
 import { Button, Grid, Header } from "semantic-ui-react";
 import State from "../../../state";
-import { getSessions } from "../../../functions/db";
+import { getSession } from "../../../functions/db";
 
 const SessionView = ({ location: { hash } }) => {
   const [loadedData, setLoadedData] = React.useState(false);
