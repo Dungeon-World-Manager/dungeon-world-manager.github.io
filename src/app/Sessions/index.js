@@ -103,50 +103,54 @@ const Session = () => {
         {/* {newSessionOpen ? (
 					<New closeNewSession={closeNewSession} />
 				) : null} */}
-
-        {stateAuth.user.id ? (
-          <Grid.Row stackable>
-            <Card.Group itemsPerRow="2">
-              <Card>
-                <Card.Content>
-                  <Card.Header>Session Name</Card.Header>
-                  <Card.Meta>{getSessions.userId}</Card.Meta>
-                  <Card.Description>{getSessions.description}</Card.Description>
-                  <Card.Meta>{getSessions.members}</Card.Meta>
-                </Card.Content>
-                <Card.Content extra>
-                  <Button.Group fluid>
-                    <Button color="red">Trash</Button>
-                    <Button.Or />
-                    <Button color="orange" onClick={openEditSession}>
-                      Edit
-                    </Button>
-                  </Button.Group>
-                </Card.Content>
-              </Card>
-            </Card.Group>
-          </Grid.Row>
-        ) : (
-          <Grid.Row stackable>
-            <Card.Group itemsPerRow="2">
-              <Card>
-                <Card.Content>
-                  <Card.Header>Session Name</Card.Header>
-                  <Card.Meta>{getSessions.userId}</Card.Meta>
-                  <Card.Description>{getSessions.description}</Card.Description>
-                  <Card.Meta>{getSessions.members}</Card.Meta>
-                </Card.Content>
-                <Card.Content extra>
-                  <Button.Group fluid>
-                    <Button color="blue">Join</Button>
-                  </Button.Group>
-                </Card.Content>
-              </Card>
-            </Card.Group>
-          </Grid.Row>
-        )}
+        <Grid.Row stackable>
+          <Grid.Column></Grid.Column>
+        </Grid.Row>
       </Grid>
-
+      <Card.Group itemsPerRow="2">
+        {/* Loop through sessions and their info cards */}
+        {stateSessions.list.flatMap((curSession) => {
+          console.log(curSession);
+          return (
+            <Card>
+              <Card.Content>
+                <Card.Header>{curSession.description}</Card.Header>
+                <Card.Meta>{curSession.creatorName}</Card.Meta>
+                <Card.Description>{curSession.meetingDay}</Card.Description>
+                <Card.Description>{curSession.meetingTime}</Card.Description>
+                <Card.Description>
+                  {curSession.sessionDuration}
+                </Card.Description>
+                <Card.Meta>
+                  {curSession.numbPlayers + " players" ?? null}
+                </Card.Meta>
+              </Card.Content>
+              <Card.Content extra>
+                <Button.Group fluid>
+                  {/* display edit info if logged in */}
+                  {stateAuth.user.id ? (
+                    <React.Fragment>
+                      <Button color="red">Trash</Button>
+                      <Button.Or />
+                      <Button color="orange" onClick={openEditSession}>
+                        Edit
+                      </Button>
+                    </React.Fragment>
+                  ) : (
+                    <Button
+                      color="blue"
+                      as={Link}
+                      to={`/sessions/view#${curSession.id}`}
+                    >
+                      Join
+                    </Button>
+                  )}
+                </Button.Group>
+              </Card.Content>
+            </Card>
+          );
+        })}
+      </Card.Group>
       {/* {editSessionOpen ? (
 				<Edit closeEditSession={closeEditSession} />
 			) : null} */}

@@ -2,21 +2,20 @@ import React from "react";
 import { Link } from "gatsby";
 import { Button, Grid, Header } from "semantic-ui-react";
 import State from "../../../state";
-import { getSession } from "../../../functions/db";
+import { getSessions } from "../../../functions/db";
 
 const SessionView = ({ location: { hash } }) => {
-  const sessionId = hash.replace("#", "");
-  console.log(sessionId);
   const [loadedData, setLoadedData] = React.useState(false);
   const state = React.useContext(State);
-  const stateSessions = state.session;
+  const stateSessions = state.sessions;
   const stateAuth = state.auth;
+  const sessionId = hash.replace("#", "");
 
   React.useEffect(() => {
-    attemptLoadSession();
+    attemptLoadSessions();
   });
 
-  async function attemptLoadSession() {
+  async function attemptLoadSessions() {
     if (loadedData) return;
     setLoadedData(true);
     try {
@@ -28,6 +27,10 @@ const SessionView = ({ location: { hash } }) => {
     }
   }
 
+  const curSession = stateSessions.list.find((c) => c.id === sessionId) ?? {};
+
+  console.log(curSession);
+
   return (
     <React.Fragment>
       <Grid stackable>
@@ -38,11 +41,19 @@ const SessionView = ({ location: { hash } }) => {
               to="/sessions"
               icon="arrow circle left"
               color="blue"
-              content="Back to Sessions list"
+              content="Back to sessions list"
             />
           </Grid.Column>
           <Grid.Column>
-            <Header as="h1">{}</Header>
+            <Header as="h1">{curSession.description}</Header>
+            <Grid.Row>
+              Created by {curSession.creatorName} on {curSession.createTime}
+            </Grid.Row>
+            <Grid.Row>Meeting day(s): {curSession.meetingDay}</Grid.Row>
+            <Grid.Row>Meeting time: {curSession.meetingTime}</Grid.Row>
+            <Grid.Row>Number of players: {curSession.numbPlayers}</Grid.Row>
+            <Grid.Row>Session duration: {curSession.sessionDuration}</Grid.Row>
+            <Grid.Row>Current members: {curSession.members}</Grid.Row>
           </Grid.Column>
         </Grid.Row>
       </Grid>
