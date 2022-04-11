@@ -20,9 +20,9 @@ const SessionView = ({ location: { hash } }) => {
     if (loadedData) return;
     setLoadedData(true);
     try {
-      const sessions = await getSession();
-      stateSessions.loadSession(sessionId);
-      //   console.log(stateSessions.session);
+      const sessions = await getSession(sessionId);
+      stateSessions.loadSession(sessions);
+      console.log(stateSessions.session);
     } catch {
       console.log("Error loading sessions");
     }

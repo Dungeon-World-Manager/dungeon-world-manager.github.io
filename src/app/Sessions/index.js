@@ -81,15 +81,14 @@ const Session = () => {
     //Check to see if the current data has been applied, if it has then don't do anything
     // If it hasn't, add the new sessions and display them.
     if (RetrieveSessionData) return;
+    setRetrieveSessionData(true);
     try {
       //retrieve the session data with a new session.
       const sessions = await getSessions();
       stateSessions.loadPublicSession(sessions);
     } catch {}
   }
-
-  //Display data retrieved from firebase into a session
-  function setRetrieveSessionData() {}
+  console.log(state.sessions);
 
   return (
     <React.Fragment>
@@ -105,7 +104,7 @@ const Session = () => {
 					<New closeNewSession={closeNewSession} />
 				) : null} */}
 
-        {auth.user.id ? (
+        {stateAuth.user.id ? (
           <Grid.Row stackable>
             <Card.Group itemsPerRow="2">
               <Card>
