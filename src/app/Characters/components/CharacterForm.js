@@ -44,11 +44,11 @@ const CharacterForm = ({ characterSubmit }) => {
 
   // todo: use state here
   const raceOptions = [{ text: "", value: "" }];
-  if (selectedClass != "") {
-    raceOptions = selectedClass.races.map((race) => {
-      return { text: race.name, value: race.id };
-    });
-  }
+  // if (selectedClass != "") {
+  //   raceOptions = selectedClass.races.map((race) => {
+  //     return { text: race.name, value: race.id };
+  //   });
+  // }
 
   // Update createCharacter.races
   // 1. Get the current races
