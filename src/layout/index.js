@@ -1,45 +1,53 @@
-import React, { useState } from "react";
-import Navbar from "./navbar";
-import { Segment, Menu, Icon, Image } from "semantic-ui-react";
-import "semantic-ui-css/semantic.css";
-import Logo from "../images/dungeon-world.png";
+import React, { useState } from 'react';
+import Navbar from './navbar';
+import { Segment, Menu, Icon, Image, Sidebar } from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.css';
+// import Logo from '../images/dungeon-world.png';
 
 const Layout = ({ children }) => {
-  // * Opens and closes sidebar Menu
-  const [sidebar, setSidebar] = useState(false);
+	// * Opens and closes sidebar Menu
+	const [sidebar, setSidebar] = useState(false);
 
-  function openSidebar() {
-    setSidebar(true);
-  }
+	function openSidebar() {
+		setSidebar(true);
+	}
 
-  function closeSidebar() {
-    setSidebar(false);
-  }
+	function closeSidebar() {
+		setSidebar(false);
+	}
 
-  return (
-    <React.Fragment>
-      {/* // ! Web Navigation */}
-      <Menu color="red" inverted fluid>
-        <Menu.Item>
-          <Image src={Logo} size="small" />
-        </Menu.Item>
+	return (
+		<React.Fragment>
+			<Menu color='red' inverted fluid attached='top'>
+				<Menu.Menu position='right'>
+					<Menu.Item onClick={openSidebar}>
+						<Icon name={sidebar ? 'x' : 'bars'} size='big' />
+					</Menu.Item>
+				</Menu.Menu>
+			</Menu>
+			<Sidebar.Pushable>
+				<Sidebar
+					as={Menu}
+					animation='overlay'
+					inverted
+					vertical
+					width='thin'
+					visible={sidebar}
+					onHide={closeSidebar}
+					direction='right'
+					icon='labeled'
+				>
+					{sidebar ? <Navbar closeSidebar={closeSidebar} /> : null}
+				</Sidebar>
 
-        <Menu.Menu position="right">
-          <Menu.Item onClick={openSidebar}>
-            <Icon color="black" name="bars" size="big" />
-          </Menu.Item>
-        </Menu.Menu>
-      </Menu>
-
-      {/* // ! App Navigation */}
-      {sidebar ? <Navbar closeSidebar={closeSidebar} /> : null}
-
-      {/* // ! App Content */}
-      <Segment color="black" padded>
-        {children}
-      </Segment>
-    </React.Fragment>
-  );
+				<Sidebar.Pusher dimmed={sidebar}>
+					<Segment style={{ height: 'calc(100vh - 54px)' }} basic>
+						{children}
+					</Segment>
+				</Sidebar.Pusher>
+			</Sidebar.Pushable>
+		</React.Fragment>
+	);
 };
 
 export default Layout;
