@@ -37,7 +37,7 @@ const Layout = ({ children }) => {
 					direction='right'
 					icon='labeled'
 				>
-					<Navbar closeSidebar={closeSidebar} />
+					{sidebar ? <Navbar closeSidebar={closeSidebar} /> : null}
 				</Sidebar>
 
 				<Sidebar.Pusher dimmed={sidebar}>

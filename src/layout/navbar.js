@@ -27,13 +27,15 @@ const Navbar = ({ closeSidebar }) => {
 				</Menu.Item>
 			) : null}
 
-			{profile ? (
+			{profile && auth.user.id ? (
 				<React.Fragment>
 					<Menu.Item onClick={closeSidebar} as={Link} to='/settings'>
 						<Icon name='settings' />
 						Settings
 					</Menu.Item>
-					<Menu.Item>
+					<Menu.Item
+						onClick={() => auth.logoutUser() && setProfile(false)}
+					>
 						<Icon name='sign out' />
 						Logout
 					</Menu.Item>
