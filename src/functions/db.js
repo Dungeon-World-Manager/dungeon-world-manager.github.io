@@ -150,6 +150,16 @@ export async function getSessions() {
   }
 }
 
+// Get single public sessions from db
+export async function getSession(id) {
+  try {
+    const dataDoc = await getDoc(doc(db, "sessions", id));
+    return dataDoc.data();
+  } catch {
+    return {};
+  }
+}
+
 export async function getCharacterInfo() {
   //Create an array of characters
   const characters = [];
