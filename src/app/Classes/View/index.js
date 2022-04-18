@@ -49,7 +49,6 @@ const ClassesView = ({ location: { hash } }) => {
         <Grid.Row columns="2">
           <Grid.Column>
             <p>{curClass.description}</p>
-            >>>>>>> 024b44de5da6dd43afd7bd2d62c514c3c58f2086
           </Grid.Column>
         </Grid.Row>
       </Grid>
