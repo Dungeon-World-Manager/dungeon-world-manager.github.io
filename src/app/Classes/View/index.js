@@ -42,7 +42,13 @@ const ClassesView = ({ location: { hash } }) => {
 						/>
 					</Grid.Column>
 					<Grid.Column>
-						<Header as='h1'>Class Name</Header>
+						<Header as='h3'>Class Name: {curClass.name}</Header>
+						<Header as='h3'>Class Description: {curClass.description}</Header>
+						{/* <Header as='h3'>Race Name: {curClass.races.name}</Header> */}
+						{/* <Header as='h3'>Race Description: {curClass.races.description}</Header> */}
+						<Header as='h3'>Base HP: {curClass.baseDamage}</Header>
+						<Header as='h3'>Base Damage: {curClass.baseHp}</Header>
+
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>
