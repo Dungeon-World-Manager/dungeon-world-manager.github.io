@@ -196,3 +196,14 @@ export async function addSession(addData) {
     return {};
   }
 }
+
+// Adding data from the Create Sessions page
+export async function addCharacter(addData) {
+  try {
+    const addCollection = collection(db, "characters");
+    const dataDoc = await addDoc(addCollection, addData);
+    return { ...addData, id: dataDoc.id };
+  } catch {
+    return {};
+  }
+}

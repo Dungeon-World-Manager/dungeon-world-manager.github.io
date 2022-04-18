@@ -15,21 +15,26 @@ function sessionsState(state, setter) {
     updateState();
   }
 
+  //Add a new session to the session list
+  function addNewSession(newSession) {
+    sessions.list.push(newSession);
+    updateState();
+  }
   function loadSessionsList(list) {
     sessions.list = list;
     updateState();
   }
 
-  function loadSession(session) {
-    sessions.session = session;
-    updateState();
-  }
+  //   function loadSession(session) {
+  //     sessions.session = session;
+  //     updateState();
+  //   }
 
   return {
     ...sessions,
     clearSessions,
+    addNewSession,
     loadSessionsList,
-    loadSession,
   };
 }
 
