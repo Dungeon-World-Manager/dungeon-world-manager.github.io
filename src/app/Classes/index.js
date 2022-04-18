@@ -32,17 +32,19 @@ const ClassesList = () => {
 						<Header as='h1'>Classes</Header>
 					</Grid.Column>
 					<Grid.Column textAlign='right'>
-						<Button
-							as={Link}
-							to='/classes/new'
-							icon='plus'
-							color='green'
-							content='New Class'
-						/>
+						{stateAuth.user.id ? (
+							<Button
+								as={Link}
+								to='/classes/new'
+								icon='plus'
+								color='green'
+								content='New Class'
+							/>
+						) : null}
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>
-			<Card.Group>
+			<Card.Group itemsPerRow={3} stackable>
 				{/* Loop through classes and their info cards */}
 				{stateClasses.publicClasses.flatMap(curClass => {
 					return (

@@ -116,6 +116,24 @@ export async function getClasses() {
   }
 }
 
+// Update classes tied to a user
+export async function updateClasses(eclass) {
+  const updateClasses = { ...eclass };
+  try {
+    const editClasses = doc(db, "classes", updateClasses.id);
+    await updateDoc(editClasses, {
+      baseDamage: editClasses.baseDamage,
+      baseHp: editClasses.baseHp,
+      description: editClasses.description,
+      name: editClasses.name,
+      races: editClasses.races,
+      userId: editClasses.userId,
+    });
+  } catch {
+    return updateClasses;
+  }
+}
+
 // Get all public sessions from db
 export async function getSessions() {
   const sessions = [];
