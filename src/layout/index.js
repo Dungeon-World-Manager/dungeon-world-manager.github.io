@@ -41,7 +41,9 @@ const Layout = ({ children }) => {
 				</Sidebar>
 
 				<Sidebar.Pusher dimmed={sidebar}>
-					<Segment basic>{children}</Segment>
+					<Segment style={{ height: 'calc(100vh - 54px)' }} basic>
+						{children}
+					</Segment>
 				</Sidebar.Pusher>
 			</Sidebar.Pushable>
 		</React.Fragment>
