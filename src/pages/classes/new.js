@@ -1,2 +1,2 @@
-import BaseInfo from '../../app/Classes/BaseInfo';
+import BaseInfo from '../../app/Classes/BaseInfo/index';
 export default BaseInfo;
