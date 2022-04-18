@@ -12,6 +12,7 @@ const CharacterForm = ({ characterSubmit }) => {
     name: "",
     description: "",
     class: "",
+    race: "",
     baseDamage: "",
     baseHp: "",
   });
@@ -35,7 +36,6 @@ const CharacterForm = ({ characterSubmit }) => {
 
   const [race, setRace] = useState({
     name: "",
-    description: "",
   });
 
   const classOptions = stateClasses.publicClasses.map((curClass) => {
@@ -43,7 +43,7 @@ const CharacterForm = ({ characterSubmit }) => {
   });
 
   // todo: use state here
-  const raceOptions = [{ text: "", value: "" }];
+  let raceOptions = [];
   // if (selectedClass != "") {
   //   raceOptions = selectedClass.races.map((race) => {
   //     return { text: race.name, value: race.id };
@@ -78,13 +78,16 @@ const CharacterForm = ({ characterSubmit }) => {
   // }
 
   function selectClass(e, { name, value }) {
-    setCreateCharacter(
-      stateClasses.publicClasses.find((c) => c.id === value) ?? ""
-    );
+    // thisClass = stateClasses.publicClasses.find((c) => c.id === value);
+    setselectedClass(value ?? "");
+    raceOptions = selectedClass.races.map((race) => {
+      return { text: race.name, value: race.id };
+    });
+    console.log(stateClasses.publicClasses.find((c) => c.id === value));
   }
 
   function selectRace(e, { name, value }) {
-    setCreateCharacter(selectedClass.races.find((c) => c.id === value) ?? "");
+    setRace(selectedClass.races.find((c) => c.id === value) ?? "");
   }
 
   function changeCharacter(e, { name, value }) {
@@ -153,7 +156,7 @@ const CharacterForm = ({ characterSubmit }) => {
             label="Select Race:"
             options={raceOptions}
             name="race"
-            value={raceOptions.name}
+            value={race.name}
             onChange={selectRace}
           />
         </Form.Group>
