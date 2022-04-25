@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Button } from "semantic-ui-react";
 import { Link } from "gatsby";
 
-const EditPage = ({ classEdit, editForm, edit }) => {
+const EditPage = ({ classEdit, getData }) => {
   return (
     <React.Fragment>
       <Form>
@@ -11,15 +11,15 @@ const EditPage = ({ classEdit, editForm, edit }) => {
             label="Class name:"
             id="classname"
             name="name"
-            value={edit.name}
-            onChange={editForm}
+            value={getData.name}
+            // onChange={editForm}
           />
           <Form.TextArea
             label="Class Description:"
             id="classDescription"
             name="description"
-            value={edit.description}
-            onChange={editForm}
+            value={getData.description}
+            // onChange={editForm}
           />
         </Form.Group>
 
@@ -28,15 +28,15 @@ const EditPage = ({ classEdit, editForm, edit }) => {
             label="Race name:"
             id="racename"
             name="name"
-            value={edit.name}
-            onChange={editForm}
+            value={getData.name}
+            // onChange={editForm}
           />
           <Form.TextArea
             label="Race Description:"
             id="raceDescription"
             name="description"
-            value={edit.description}
-            onChange={editForm}
+            value={getData.description}
+            // onChange={editForm}
           />
         </Form.Group>
         <Form.Field>
@@ -50,16 +50,16 @@ const EditPage = ({ classEdit, editForm, edit }) => {
         <Form.Group widths="equal">
           <Form.Select
             label="Select Race:"
-            options={edit.raceOptions}
+            options={getData.raceOptions}
             name="race"
-            value={edit.race}
-            onChange={editForm}
+            value={getData.race}
+            // onChange={editForm}
           />
           <Form.Input
             label="Name:"
             name="name"
-            value={edit.name}
-            onChange={editForm}
+            value={getData.name}
+            // onChange={editForm}
           />
         </Form.Group>
         <Form.Field>
@@ -75,15 +75,15 @@ const EditPage = ({ classEdit, editForm, edit }) => {
             type="number"
             label="Base HP"
             name="baseHp"
-            value={edit.baseHp}
-            onChange={editForm}
+            value={getData.baseHp}
+            // onChange={editForm}
           />
           <Form.Input
             type="number"
             label="Base Damage"
             name="baseDamage"
-            value={edit.baseDamage}
-            onChange={editForm}
+            value={getData.baseDamage}
+            // onChange={editForm}
           />
         </Form.Group>
 
