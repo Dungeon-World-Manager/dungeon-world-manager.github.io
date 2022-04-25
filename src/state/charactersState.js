@@ -1,6 +1,7 @@
 function charactersState(state, setter) {
 	const initialCharacters = {
 		list: [],
+		publicCharacters: [],
 	};
 	const oldCharacters = state.characters || {};
 	const characters = { ...initialCharacters, ...oldCharacters };

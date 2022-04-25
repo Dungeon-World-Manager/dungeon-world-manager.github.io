@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { Card } from 'semantic-ui-react';
+import { Button, Card, Grid, Header } from 'semantic-ui-react';
 import { getCharacterInfo } from '../../functions/db';
 import CustomCard from '../components/CustomCard';
 import State from '../../state';
+import { Link } from 'gatsby';
 
 const CharactersList = () => {
 	/*Retrieve Class and Character data from firebase*/
@@ -25,7 +26,21 @@ const CharactersList = () => {
 	/*Put the character info into a new card that will be displayed*/
 	return (
 		<React.Fragment>
-			<Card.Group>
+			<Grid columns={2} stackable>
+				<Grid.Column>
+					<Header as='h1'>Characters</Header>
+				</Grid.Column>
+				<Grid.Column textAlign='right'>
+					<Button
+						as={Link}
+						to='/characters/new'
+						icon='plus'
+						color='green'
+						content='New Character'
+					/>
+				</Grid.Column>
+			</Grid>
+			<Card.Group stackable itemsPerRow={3}>
 				{stateChars.list.map(char => {
 					return (
 						<CustomCard
@@ -39,12 +54,12 @@ const CharactersList = () => {
 					);
 				})}
 			</Card.Group>
-			<Card
+			{/* <Card
 				href='#Character-details-page'
 				header='Character Name'
 				meta='Character Class'
 				description='Character Description/Backstory'
-			/>
+			/> */}
 		</React.Fragment>
 	);
 };

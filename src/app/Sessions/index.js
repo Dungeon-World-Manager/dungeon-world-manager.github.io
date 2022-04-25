@@ -97,12 +97,14 @@ const Session = () => {
 					<Header as='h1'>Sessions List</Header>
 				</Grid.Column>
 				<Grid.Column textAlign='right' width='4'>
-					<Icon
-						color='green'
-						name='plus'
-						size='big'
-						onClick={openNewSession}
-					/>
+					{stateAuth.user.id ? (
+						<Icon
+							color='green'
+							name='plus'
+							size='big'
+							onClick={openNewSession}
+						/>
+					) : null}
 				</Grid.Column>
 
 				{/* {newSessionOpen ? (
@@ -112,7 +114,7 @@ const Session = () => {
 					<Grid.Column></Grid.Column>
 				</Grid.Row>
 			</Grid>
-			<Card.Group itemsPerRow='2'>
+			<Card.Group stackable itemsPerRow='2'>
 				{/* Loop through sessions and their info cards */}
 				{stateSessions.list.flatMap((curSession, i) => {
 					console.log(curSession);
