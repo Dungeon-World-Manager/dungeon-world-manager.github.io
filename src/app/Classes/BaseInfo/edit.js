@@ -4,36 +4,51 @@ import State from "../../../state";
 import EditForm from "../components/editClassForm";
 
 const BaseInfoEdit = ({ location: { hash } }) => {
+  const [fieldData, setFieldData] = React.useState(false);
   const state = React.useContext(State);
   const update = state.classes;
   const classID = hash.replace("#", "");
   console.log(classID);
 
-  const [edit, setEdit] = React.useState({
-    baseDamage: updateClasses.baseDamage,
-    baseHp: updateClasses.baseHp,
-    description: updateClasses.description,
-    name: updateClasses.name,
-    races: updateClasses.races,
-    userId: updateClasses.userId,
-  });
+  const getData = update.publicClasses.find((uc) => uc.id === classID) ?? {};
+  console.log(getData);
 
-  // TODO Fix function to add updated data to firebase
+  // const [updateData, setupdateData] = useState({
+  //   races: [{ name: "none", names: [] }],
+  //   name: "",
+  //   baseDamage: "",
+  //   description: "",
+  //   baseHp: "",
+  // });
+
+  // React.useEffect(() => {
+  //   attemptUpdateClasses();
+  // });
+
+  // async function attemptUpdateClasses() {
+  //   if (fieldData) return;
+  //   setFieldData(true);
+  //   console.log(fieldData);
+  //   try {
+  //     const classes = await updateClasses();
+  //     update.updateState(classes);
+  //   } catch {}
+  // }
+
+  // function updateData(e, { name, value }) {
+  //   const editData = { ...createClass };
+  //   newClass[name] = value;
+  //   setCreateClass(newClass);
+  // }
+
   function classEdit(editClasses) {
     editClasses.update = updateClasses(editClasses);
     console.log(editClasses);
   }
 
-  function editForm(e, { name, value }) {
-    const newEdit = { ...edit };
-    newEdit[name] = value;
-    console.log(name, value);
-    setEdit(newEdit);
-  }
-
   return (
     <React.Fragment>
-      <EditForm classEdit={classEdit} editForm={editForm} edit={edit} />
+      <EditForm classEdit={classEdit} getData={getData} />
     </React.Fragment>
   );
 };
