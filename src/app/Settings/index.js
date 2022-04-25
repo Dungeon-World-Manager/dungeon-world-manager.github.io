@@ -2,12 +2,23 @@ import { Link } from 'gatsby';
 import React from 'react';
 import { Button, Form, Grid, Header } from 'semantic-ui-react';
 import State from '../../state';
+import { generatePdf } from '../../functions/general';
 
 const Settings = () => {
 	const state = React.useContext(State);
+	const [loading, setLoading] = React.useState(false);
+
+	async function loadPdf() {
+		setLoading(true);
+		await generatePdf({ name: 'Ty', xp: 100 });
+		setLoading(false);
+	}
 
 	return (
 		<React.Fragment>
+			<Button disabled={loading} onClick={loadPdf}>
+				Make pdf
+			</Button>
 			<h1>Setting</h1>
 			{!state.auth.user.id ? (
 				<Grid columns={1}>
