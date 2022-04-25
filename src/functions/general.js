@@ -42,6 +42,10 @@ function editTextBox(
 	pdf.addField(textField);
 }
 
+/**
+ *
+ * @param {Object} char Character object
+ */
 export async function generatePdf(char) {
 	const pdf = new jsPDF('p', 'px', 'letter');
 
