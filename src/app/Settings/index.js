@@ -1,57 +1,51 @@
-import { Link } from 'gatsby';
-import React from 'react';
-import { Button, Form, Grid, Header } from 'semantic-ui-react';
-import State from '../../state';
-import { generatePdf } from '../../functions/general';
+import { Link } from "gatsby";
+import React from "react";
+import { Button, Form, Grid, Header } from "semantic-ui-react";
+import State from "../../state";
+import { generatePdf } from "../../functions/general";
 
 const Settings = () => {
-	const state = React.useContext(State);
-	const [loading, setLoading] = React.useState(false);
+  const state = React.useContext(State);
+  const [loading, setLoading] = React.useState(false);
 
-	async function loadPdf() {
-		setLoading(true);
-		await generatePdf({ name: 'Ty', xp: 100 });
-		setLoading(false);
-	}
+  async function loadPdf() {
+    setLoading(true);
+    await generatePdf({ name: "Ty", xp: 100, str: 100 });
+    setLoading(false);
+  }
 
-	return (
-		<React.Fragment>
-			<Button disabled={loading} onClick={loadPdf}>
-				Make pdf
-			</Button>
-			<h1>Setting</h1>
-			{!state.auth.user.id ? (
-				<Grid columns={1}>
-					<Grid.Column>
-						<Header>
-							Sorry, you need to be signed in for that.
-						</Header>
-					</Grid.Column>
-					<Grid.Column>
-						<Button
-							as={Link}
-							to='/login'
-							icon='user'
-							content='Go Login'
-							color='red'
-						/>
-					</Grid.Column>
-				</Grid>
-			) : (
-				<Form>
-					<Form.Input
-						label='User Name'
-						value={state.auth.user.userName ?? '--'}
-					/>
-					<Form.Input
-						label='Password'
-						value={'super secret'}
-						type='password'
-					/>
-				</Form>
-			)}
-		</React.Fragment>
-	);
+  return (
+    <React.Fragment>
+      <Button disabled={loading} onClick={loadPdf}>
+        Make pdf
+      </Button>
+      <h1>Setting</h1>
+      {!state.auth.user.id ? (
+        <Grid columns={1}>
+          <Grid.Column>
+            <Header>Sorry, you need to be signed in for that.</Header>
+          </Grid.Column>
+          <Grid.Column>
+            <Button
+              as={Link}
+              to="/login"
+              icon="user"
+              content="Go Login"
+              color="red"
+            />
+          </Grid.Column>
+        </Grid>
+      ) : (
+        <Form>
+          <Form.Input
+            label="User Name"
+            value={state.auth.user.userName ?? "--"}
+          />
+          <Form.Input label="Password" value={"super secret"} type="password" />
+        </Form>
+      )}
+    </React.Fragment>
+  );
 };
 
 export default Settings;
