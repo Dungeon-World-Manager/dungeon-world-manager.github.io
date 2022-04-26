@@ -1,4 +1,8 @@
-import jsPDF, { AcroFormTextField } from 'jspdf';
+import jsPDF, {
+	AcroFormTextField,
+	AcroFormCheckBox,
+	AcroFormComboBox,
+} from 'jspdf';
 
 export function generateKey(str = '') {
 	return String(str)
@@ -12,6 +16,8 @@ export function generateKey(str = '') {
 		}, 2)
 		.join('');
 }
+
+function baseStatBox(pdf, {}) {}
 
 /**
  * @description This edit text box creates a label and text box for users to type in.
@@ -33,6 +39,7 @@ function editTextBox(
 	pdf.setFontSize(14);
 	pdf.text(label, x + 2, y + 14);
 	const textField = new AcroFormTextField();
+	textField.multiline = true;
 	textField.fontSize = 14;
 	textField.value = value ?? '';
 	textField.x = x + labelWidth + 5;
@@ -49,22 +56,17 @@ function editTextBox(
 export async function generatePdf(char) {
 	const pdf = new jsPDF('p', 'px', 'letter');
 
-	editTextBox(pdf, {
-		label: 'Name',
-		x: 10,
-		y: 10,
-		height: 20,
-		width: 150,
-		value: char.name,
-	});
-	editTextBox(pdf, {
-		label: 'XP',
-		x: 170,
-		y: 10,
-		height: 20,
-		width: 60,
-		value: char.xp,
-	});
+	// set background color
+	pdf.setFillColor(230, 231, 233);
+	pdf.rect(0, 0, 500, 200, 'F');
+
+	// const checkbox = new AcroFormCheckBox();
+	// checkbox.fontSize = 12;
+	// checkbox.width = 20;
+	// checkbox.height = 20;
+	// checkbox.x = 50;
+	// checkbox.y = 50;
+	// pdf.addField(checkbox);
 
 	pdf.save('Name of the pdf.pdf');
 }
