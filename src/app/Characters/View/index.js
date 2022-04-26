@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 import { Button, Grid, Header } from 'semantic-ui-react';
 import State from '../../../state';
-import { getCharacters } from '../../../functions/db';
+import { getCharacterInfo } from '../../../functions/db';
 
 const CharactersView = ({ location: { hash } }) => {
 	const [loadedData, setLoadedData] = React.useState(false);
@@ -23,7 +23,7 @@ const CharactersView = ({ location: { hash } }) => {
 		if (loadedData) return;
 		setLoadedData(true);
 		try {
-			const characters = await getCharacters();
+			const characters = await getCharacterInfo();
 			stateCharacters.loadPublicCharacters(characters);
 		} catch {}
 	}
