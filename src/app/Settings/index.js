@@ -10,7 +10,14 @@ const Settings = () => {
 
   async function loadPdf() {
     setLoading(true);
-    await generatePdf({ name: "Ty", xp: 100, str: 100 });
+    await generatePdf({
+      name: "Ty",
+      xp: 100,
+      race: "Outsider",
+      raceDesc:
+        "You may be elf, dwarf, halfling, or human, but you and your people are not from around here. At the beginning of each session, the GM will ask you something about your homeland, why you left, or what you left behind. If you answer them, mark XP.",
+      str: 100,
+    });
     setLoading(false);
   }
 

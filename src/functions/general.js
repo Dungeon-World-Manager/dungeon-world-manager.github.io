@@ -112,6 +112,52 @@ function damageBox(
   pdf.addField(textField);
 }
 
+function editRaceInfo(
+  pdf,
+  { label = "Label", x = 0, y = 0, width = 100, height = 20, value = null }
+) {
+  // checkbox
+  const checkbox = new AcroFormCheckBox();
+  checkbox.fontSize = 10;
+  checkbox.width = 15;
+  checkbox.height = 15;
+  checkbox.x = x + 3;
+  checkbox.y = y + 2;
+  pdf.addField(checkbox);
+
+  // race name
+  const checkboxWidth = 20;
+  const labelField = new AcroFormTextField();
+  pdf.setFontSize(14);
+  labelField.fontSize = 14;
+  labelField.value = label ?? "";
+  labelField.x = x + checkboxWidth + 5;
+  labelField.y = y + 2;
+  labelField.width = width - checkboxWidth - 5;
+  labelField.height = 20;
+  pdf.addField(labelField);
+  const textField = new AcroFormTextField();
+  textField.fontSize = 10;
+  textField.multiline = true;
+  textField.value = value ?? "";
+  textField.x = x + checkboxWidth + 5;
+  textField.y = y + 23;
+  textField.width = width - checkboxWidth - 5;
+  textField.height = height - 23;
+  pdf.addField(textField);
+
+  // race description
+
+  // header for race section
+  const header = "Race";
+  const headerWidth = pdf.getTextWidth(header);
+  pdf.setFillColor(0, 0, 0);
+  pdf.rect(x, y - 30, width, 20, "F");
+  pdf.setFontSize(14);
+  pdf.setTextColor("#FFFFFF");
+  pdf.text(header, x + 10, y - 16);
+}
+
 function checkbox(pdf, { x = 0, y = 0, width = 0, height = 0 }) {
   const checkbox = new AcroFormCheckBox();
   checkbox.fontSize = 10;
@@ -197,12 +243,16 @@ export async function generatePdf(char) {
   checkbox(pdf, { x: 150, y: 95, width: 10, height: 10 });
 
   // const checkbox = new AcroFormCheckBox();
-  // checkbox.fontSize = 12;
-  // checkbox.width = 20;
-  // checkbox.height = 20;
-  // checkbox.x = 50;
-  // checkbox.y = 50;
-  // pdf.addField(checkbox);
+
+  // Race info
+  editRaceInfo(pdf, {
+    label: char.race,
+    x: 270,
+    y: 100,
+    height: 120,
+    width: 150,
+    value: char.raceDesc,
+  });
 
   pdf.save("Name of the pdf.pdf");
 }
