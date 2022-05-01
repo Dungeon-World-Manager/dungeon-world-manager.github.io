@@ -7,7 +7,7 @@ import { Link } from 'gatsby';
 
 const CharactersList = () => {
 	/*Retrieve Class and Character data from firebase*/
-	var dataLoaded = false;
+	var [dataLoaded, setDataLoaded] = React.useState(false);
 	const state = React.useContext(State);
 	const stateChars = state.characters;
 	useEffect(() => {
@@ -17,6 +17,7 @@ const CharactersList = () => {
 		if (dataLoaded === true) {
 			return;
 		} else {
+			setDataLoaded(true);
 			var characters = await getCharacterInfo();
 			stateChars.loadCharacters(characters);
 		}

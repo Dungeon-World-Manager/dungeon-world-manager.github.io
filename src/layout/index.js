@@ -41,7 +41,7 @@ const Layout = ({ children }) => {
 				</Sidebar>
 
 				<Sidebar.Pusher dimmed={sidebar}>
-					<Segment style={{ height: 'calc(100vh - 54px)' }} basic>
+					<Segment style={{ minHeight: 'calc(100vh - 54px)' }} basic>
 						{children}
 					</Segment>
 				</Sidebar.Pusher>
